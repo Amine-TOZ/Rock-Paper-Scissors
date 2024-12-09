@@ -1,7 +1,3 @@
-let computerChoice;
-let humanChoice;
-//  console.log(randomNum)
-
 function getComputerChoice(){
 let randomNum = (Math.trunc(Math.random()*3))+1;
 
@@ -14,97 +10,98 @@ if (randomNum == 1 ) {
 } else {return "scissors" ;}
 }    
 
-function getHumanChoice() {
-    let promptInput ;
-        promptInput = prompt(
-       `rock,paper or scissors`)
-        promptInput = promptInput.toLowerCase();
-        if ( promptInput == "rock" ||
-             promptInput == "paper" || 
-             promptInput == "scissors" ){
-                return promptInput;
-             }else {alert("try again")}
-        
+
+let btnClicked = "";
+
+function handleClick(event){
+    btnClicked = event.target.textContent;
+    const humanSelection = btnClicked;
+    const computerSelection = getComputerChoice();   
+    
+     playRound(humanSelection,computerSelection);
+     if (humanScore === 5) {
+        let display = document.getElementById("display");
+            display.textContent = "Congratulation! You won the game.";
+            document.removeEventListener("click", handleClick);
+
+       } else if (computerScore === 5 ) {
+        let display = document.getElementById("display");
+            display.textContent = "Game over.How can you lose to a computer?";
+            document.removeEventListener("click", handleClick);}
 }
 
-function playGame(){
+document.addEventListener("click", handleClick);
+
+
+
     let computerScore = 0;
     let humanScore = 0;
     function playRound(humanChoice,computerChoice) {
-        // console.log(`You chose :${humanChoice}`);
-        // console.log(`Computer chose :${computerChoice}`);
+        
+        let humanScoreDiv = document.getElementById("humanScore")
+        let computerScoreDiv = document.getElementById("computerScore")
+        let display = document.getElementById("display");
         if (humanChoice == computerChoice){
-            return console.log("Its a draw!!");
+            humanScoreDiv.textContent = `Your Score: ${humanScore}`
+            computerScoreDiv.textContent = `Computer Score: ${computerScore}`
+            return display.textContent = "Its a draw!!";
+
         }else {
             switch(true) {
-                case (humanChoice == "rock" &&
-                     computerChoice == "scissors"):
+                case (humanChoice === "rock" && computerChoice ==="scissors"):
                      ++humanScore;
-                     return console.log(
-                        "Rock smashes scissors you won!!");break;
+                     humanScoreDiv.textContent = `Your Score: ${humanScore}`
+                     computerScoreDiv.textContent = `Computer Score: ${computerScore}`
+                     return display.textContent =
+                        "Rock smashes scissors you won!!";
 
 
-                case (humanChoice == "rock" &&
-                    computerChoice == "paper"):
-                    ++computerScore;
-                    return console.log(
-                       "Rock loses to paper you lost");break;
+                case (humanChoice === "rock" && computerChoice === "paper"):
+                     ++computerScore;
+                     humanScoreDiv.textContent = `Your Score: ${humanScore}`
+                     computerScoreDiv.textContent = `Computer Score: ${computerScore}`
+                     return display.textContent =
+                       "Rock loses to paper you lost";
 
 
-                case (humanChoice == "paper" &&
-                    computerChoice == "rock"):
-                    ++humanScore;
-                    return console.log(
-                       "Paper beats rock you won!!");break;
+                case (humanChoice === "paper" && computerChoice === "rock"):
+                     ++humanScore;
+                     humanScoreDiv.textContent = `Your Score: ${humanScore}`
+                     computerScoreDiv.textContent = `Computer Score: ${computerScore}`
+                     return display.textContent =
+                       "Paper beats rock you won!!";
 
 
-                case (humanChoice == "paper" &&
-                    computerChoice == "scissors"):
-                    ++computerScore;
-                    return console.log(
-                       "Paper loses to rock you lost");break;
+                case (humanChoice === "paper" && computerChoice === "scissors"):
+                     ++computerScore;
+                     humanScoreDiv.textContent = `Your Score: ${humanScore}`
+                     computerScoreDiv.textContent = `Computer Score: ${computerScore}`
+                     return display.textContent =
+                       "Paper loses to rock you lost";
 
-                       
-                case (humanChoice == "paper" &&
-                    computerChoice == "scissors"):
-                    ++computerScore;
-                    return console.log(
-                       "Paper loses to rock you lost");break; 
 
-                case (humanChoice == "scissors" &&
-                    computerChoice == "rock"):
-                    ++computerScore;
-                    return console.log(
-                       "scissors loses to rock you lost");break;
+                case (humanChoice === "scissors" && computerChoice === "rock"):
+                     ++computerScore;
+                     humanScoreDiv.textContent = `Your Score: ${humanScore}`
+                     computerScoreDiv.textContent = `Computer Score:${computerScore}`
+                     return display.textContent =
+                       "scissors loses to rock you lost";
 
-                case (humanChoice == "scissors" &&
-                    computerChoice == "paper"):
-                    ++humanScore;
-                    return console.log(
-                       "scissors cuts paper you won!! ");break;
+
+                case (humanChoice === "scissors" && computerChoice === "paper"):
+                     ++humanScore;
+                     humanScoreDiv.textContent = `Your Score:${humanScore}`
+                     computerScoreDiv.textContent = `Computer Score: ${computerScore}`
+                     return display.textContent =
+                       "scissors cuts paper you won!! ";
                 
             }        
         }
+    
 }
 
 
-for (let i = 1 ; i <= 5 ; i++) {
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-playRound(humanSelection,computerSelection) 
 
-}
-
-if (humanScore > computerScore) {
- console.log("Congratulation! You won the game.")
-} else if (humanScore < computerScore) {
- console.log("Game over.How can you lose to a computer?")
-}else {console.log("Its a draw!!")}
-
-}
-
-
-playGame();
 
 
 
